@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GitUnpack/GitUnpack.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GitUnpack.Tests/GitUnpack.Tests.csproj" />
+  </Folder>
+</Solution>

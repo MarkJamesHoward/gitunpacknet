@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+*.nupkg
+*.user
+*.suo
+.vs/
+
+# Node (legacy)
+node_modules/
+
+# OS
+.DS_Store
+
+# IDE
+*.log
+.env

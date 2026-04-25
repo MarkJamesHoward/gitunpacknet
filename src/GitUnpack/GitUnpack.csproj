@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>GitUnpack</RootNamespace>
+    <AssemblyName>git-unpack</AssemblyName>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>git-unpack</ToolCommandName>
+    <Version>1.0.2</Version>
+    <Authors>MarkJamesHoward</Authors>
+    <Description>CLI tool to unpack Git pack files to loose objects</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GitUnpack.Tests" />
+  </ItemGroup>
+
+</Project>
