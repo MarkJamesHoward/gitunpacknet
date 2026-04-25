@@ -1,15 +1,9 @@
 # Installation
 
-## npm (recommended)
+## .NET Tool (recommended)
 
 ```bash
-npm install -g git-unpack
-```
-
-## npx (no install)
-
-```bash
-npx git-unpack /path/to/repo
+dotnet tool install -g git-unpack
 ```
 
 ## From source
@@ -17,10 +11,11 @@ npx git-unpack /path/to/repo
 ```bash
 git clone https://github.com/MarkJamesHoward/git-unpack.git
 cd git-unpack
-npm link
+dotnet build
+dotnet run --project src/GitUnpack/GitUnpack.csproj
 ```
 
 ## Requirements
 
-- Node.js 14.0.0 or higher
+- [.NET 9.0](https://dotnet.microsoft.com/download) or later
 - No additional dependencies required

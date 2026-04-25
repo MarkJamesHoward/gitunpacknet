@@ -1,85 +1,89 @@
 # API
 
-You can also use git-unpack programmatically in your Node.js projects.
+You can also use git-unpack programmatically by referencing the project.
 
 ## Unpacker Class
 
-```javascript
-const Unpacker = require('git-unpack/lib/unpacker');
+```csharp
+using GitUnpack;
 
-const unpacker = new Unpacker('/path/to/.git');
-const result = unpacker.unpack({
-  deletePackFiles: false,
-  verbose: false
-});
+var unpacker = new Unpacker("/path/to/.git");
+var result = unpacker.Unpack(deletePackFiles: false, verbose: false);
 
-console.log(result);
-// { totalObjects: 150, newObjects: 150, packFiles: 1 }
+Console.WriteLine($"Total: {result.TotalObjects}, New: {result.NewObjects}");
+// Total: 150, New: 150
 ```
 
 ### Constructor
 
-```javascript
-new Unpacker(gitDir)
+```csharp
+new Unpacker(string gitDir)
 ```
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `gitDir` | string | Path to the `.git` directory |
+| `gitDir` | `string` | Path to the `.git` directory |
 
 ### Methods
 
-#### `unpack(options)`
+#### `Unpack(bool deletePackFiles, bool verbose)`
 
-Unpacks all pack files in the repository.
+Unpacks all pack files and packed refs in the repository.
 
-**Options:**
+**Parameters:**
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `deletePackFiles` | boolean | `false` | Delete pack files after unpacking |
-| `verbose` | boolean | `false` | Log each object as it's unpacked |
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `deletePackFiles` | `bool` | `false` | Delete pack files and packed-refs after unpacking |
+| `verbose` | `bool` | `false` | Log each object/ref as it's unpacked |
 
-**Returns:**
+**Returns:** `UnpackResult`
 
-```javascript
-{
-  totalObjects: number,  // Total objects processed
-  newObjects: number,    // New objects written (excludes existing)
-  packFiles: number      // Number of pack files processed
-}
+```csharp
+record UnpackResult(
+    int TotalObjects,  // Total objects processed
+    int NewObjects,    // New objects written (excludes existing)
+    int PackFiles,     // Number of pack files processed
+    int TotalRefs,     // Total refs processed
+    int NewRefs        // New refs written (excludes existing)
+);
 ```
 
 ## PackReader Class
 
 Lower-level API for reading pack files directly.
 
-```javascript
-const PackReader = require('git-unpack/lib/pack-reader');
+```csharp
+using GitUnpack;
 
-const reader = new PackReader('/path/to/.git/objects/pack/pack-xxx.pack');
-const objects = reader.parse();
+var reader = new PackReader("/path/to/.git/objects/pack/pack-xxx.pack");
+var objects = reader.Parse();
 
-for (const [sha, obj] of objects) {
-  console.log(`${sha}: ${obj.type} (${obj.data.length} bytes)`);
+foreach (var (sha, obj) in objects)
+{
+    Console.WriteLine($"{sha}: {obj.Type} ({obj.Data.Length} bytes)");
 }
 ```
 
 ### Constructor
 
-```javascript
-new PackReader(packPath, objectsDir?)
+```csharp
+new PackReader(string packPath, string? objectsDir = null)
 ```
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `packPath` | string | Path to the `.pack` file |
-| `objectsDir` | string | Optional: path to objects dir for thin pack support |
+| `packPath` | `string` | Path to the `.pack` file |
+| `objectsDir` | `string?` | Optional: path to objects dir for thin pack support |
 
 ### Methods
 
-#### `parse()`
+#### `Parse()`
 
-Parses the pack file and returns a Map of all objects.
+Parses the pack file and returns a dictionary of all objects.
 
-**Returns:** `Map<string, { type: string, data: Buffer }>`
+**Returns:** `Dictionary<string, GitObject>`
+
+```csharp
+record GitObject(string Type, byte[] Data);
+```

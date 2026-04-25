@@ -9,7 +9,7 @@
     <AssemblyName>git-unpack</AssemblyName>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>git-unpack</ToolCommandName>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Authors>MarkJamesHoward</Authors>
     <Description>CLI tool to unpack Git pack files to loose objects</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

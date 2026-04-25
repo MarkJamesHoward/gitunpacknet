@@ -263,12 +263,24 @@ class PackReader
 
     private static byte[] ZlibDecompress(byte[] input)
     {
-        // Skip 2-byte zlib header
-        using var inputStream = new MemoryStream(input, 2, input.Length - 2);
-        using var deflate = new DeflateStream(inputStream, CompressionMode.Decompress);
-        using var output = new MemoryStream();
-        deflate.CopyTo(output);
-        return output.ToArray();
+        // Try ZLibStream first (handles zlib header automatically)
+        try
+        {
+            using var inputStream = new MemoryStream(input);
+            using var zlib = new ZLibStream(inputStream, CompressionMode.Decompress);
+            using var output = new MemoryStream();
+            zlib.CopyTo(output);
+            return output.ToArray();
+        }
+        catch
+        {
+            // Fall back to raw DeflateStream (no header)
+            using var inputStream = new MemoryStream(input);
+            using var deflate = new DeflateStream(inputStream, CompressionMode.Decompress);
+            using var output = new MemoryStream();
+            deflate.CopyTo(output);
+            return output.ToArray();
+        }
     }
 
     private void ResolveDeltas()

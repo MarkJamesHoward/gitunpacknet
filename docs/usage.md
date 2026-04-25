@@ -17,8 +17,8 @@ git-unpack /path/to/repo/.git
 
 | Option | Description |
 |--------|-------------|
-| `-d, --delete` | Delete pack files after unpacking |
-| `-v, --verbose` | Show each object as it's unpacked |
+| `-d, --delete` | Delete pack files and packed-refs after unpacking |
+| `-v, --verbose` | Show each object/ref as it's unpacked |
 | `-h, --help` | Show help message |
 
 ## Examples
@@ -40,6 +40,9 @@ Unpacking 150 objects...
 
 Unpacked 150 new objects (150 total)
 
+Unpacking refs from packed-refs...
+Unpacked 3 new refs (3 total)
+
 Done!
 ```
 
@@ -49,7 +52,7 @@ Done!
 git-unpack -d /path/to/repo
 ```
 
-This will unpack all objects and then remove the `.pack` and `.idx` files.
+This will unpack all objects and refs, then remove the `.pack`, `.idx`, and `packed-refs` files.
 
 ### Verbose output
 
@@ -62,6 +65,7 @@ Shows each object SHA and type as it's unpacked:
   abc123def456... (commit)
   789012345678... (tree)
   fedcba987654... (blob)
+  refs/heads/main -> abc123d
 ```
 
 ## Exit Codes
