@@ -13,7 +13,12 @@
     <Authors>MarkJamesHoward</Authors>
     <Description>CLI tool to unpack Git pack files to loose objects</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
 
   <ItemGroup>
     <InternalsVisibleTo Include="GitUnpack.Tests" />

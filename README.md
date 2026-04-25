@@ -2,19 +2,13 @@
 
 CLI tool to unpack Git pack files to loose objects.
 
-[![npm version](https://img.shields.io/npm/v/git-unpack.svg)](https://www.npmjs.com/package/git-unpack)
+[![NuGet](https://img.shields.io/nuget/v/git-unpack.svg)](https://www.nuget.org/packages/git-unpack)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
 
 ```bash
-npm install -g git-unpack
-```
-
-Or run directly without installing:
-
-```bash
-npx git-unpack
+dotnet tool install -g git-unpack
 ```
 
 ## Usage
@@ -37,8 +31,8 @@ git-unpack -v
 
 | Option | Description |
 |--------|-------------|
-| `-d, --delete` | Delete pack files after unpacking |
-| `-v, --verbose` | Show each object as it's unpacked |
+| `-d, --delete` | Delete pack files and packed-refs after unpacking |
+| `-v, --verbose` | Show each object/ref as it's unpacked |
 | `-h, --help` | Show help message |
 
 ## What does it do?
@@ -47,11 +41,15 @@ Git stores objects in two formats:
 - **Loose objects**: Individual files in `.git/objects/`
 - **Pack files**: Compressed bundles in `.git/objects/pack/`
 
-This tool converts pack files back to loose objects, useful for debugging, recovery, or understanding Git internals.
+Git also stores refs in two formats:
+- **Loose refs**: Individual files in `.git/refs/`
+- **Packed refs**: A single `.git/packed-refs` file
 
-## Documentation
+This tool converts pack files back to loose objects and packed refs back to individual ref files. Useful for debugging, recovery, or understanding Git internals.
 
-Full documentation available at [https://markjameshoward.github.io/git-unpack](https://markjameshoward.github.io/git-unpack)
+## Requirements
+
+- [.NET 9.0](https://dotnet.microsoft.com/download) or later
 
 ## License
 
