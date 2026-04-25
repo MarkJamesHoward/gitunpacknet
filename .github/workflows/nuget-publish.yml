@@ -36,9 +36,10 @@ jobs:
         run: dotnet pack src/GitUnpack/GitUnpack.csproj -c Release --no-build -o ./nupkgs
 
       - name: NuGet Trusted Publishing Login
+        id: nuget-login
         uses: nuget/login@v1
         with:
           user: markhoward
 
       - name: Publish to NuGet
-        run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
